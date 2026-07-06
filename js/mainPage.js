@@ -85,6 +85,11 @@ window.addEventListener("click", () => { //if any clicks are detected anywhere o
     stopAutoScroll();
     resetIdleTimer();
 });
+window.addEventListener("touchstart", () => { //for mobile platforms, allows taps anywhere on screen (or attempts to scroll manually) to end the afk scrolling action
+  paused = false;  
+  stopAutoScroll();
+  resetIdleTimer();
+});
 
 
 /*---------------------button interactions------------------------*/

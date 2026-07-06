@@ -22,10 +22,9 @@
     --colour-basic: rgb(255, 231, 200);
     --colour-basic2: rgb(255, 254, 247);
     --colour-citations: rgb(66, 66, 66);
-    --colour-name: rgb(115, 211, 121);
     --colour-background: black;
     --num-PBM: 7; /*number of builds in the PBM section*/
-    --num-DRM: 12; /*number of builds in the DRM section*/
+    --num-DRM: 5; /*number of builds in the DRM section*/
 
     --variable-num-bonus-images: ; /*Updates based on which specific page is open*/
 

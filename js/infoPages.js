@@ -57,9 +57,14 @@ IMAGES.addEventListener("mouseleave", () => { //mouse leaves a hover over IMAGES
   }
 });
 window.addEventListener("click", () => { //if any clicks are detected anywhere on the window, restart the timer as the user is not afk anymore
-    paused = false;
-    stopAutoScroll();
-    resetIdleTimer();
+  paused = false;
+  stopAutoScroll();
+  resetIdleTimer();
+});
+window.addEventListener("touchstart", () => { //for mobile platforms, allows taps anywhere on screen (or attempts to scroll manually) to end the afk scrolling action
+  paused = false;  
+  stopAutoScroll();
+  resetIdleTimer();
 });
 
 // Start idle timer on load
