@@ -1,11 +1,22 @@
 /* --------------- global values -------------- */
 :root{ /*using variables makes it easier to make quick adjustments*/
+    font-size: 100%; /*prevents custom browser zooms from improperly impacting text sizes*/
+
     --text-h1: 3em;
-    --text-h2: 2.5em;
+    --text-h1-2: 2.5em;
+    --text-h2: 1.5em;
+    --text-h2-2: 1.2em;
+    --text-subtitle: 1.2em;
+    --text-subtitle2: 0.9em;
     --text-h3: 1.8em;
+    --text-h3-mobile: 1.2em;
+    --text-h3-mobile2: 0.95em;
     --text-title: 3.6em;
     --text-flair: 0.95em;
+    --text-flair2: 0.80em;
     --text-body: 1.15em;
+    --text-body-mobile: 0.75em;
+    --text-body-mobile2: 0.65em;
     --colour-splash: rgb(162, 9, 9);
     --colour-splash2: rgb(121, 75, 37);
     --colour-basic: rgb(255, 231, 200);
@@ -22,6 +33,8 @@
     color: var(--colour-basic); /*setting the default text colour to a light colour since default background colour is black.*/
 }
 
+
+
 /* ------------------------- main page ------------------------ */
 .main-head{ /*main header*/
     display:grid;
@@ -33,6 +46,12 @@
     font-size: var(--text-title);
     font-style: italic;
     color: var(--colour-basic2); 
+}
+.main-head h3{ /*this h3 used for subtitles only*/
+    grid-column: 1/-1;
+    text-align: center;
+    padding-left: 270px;
+    font-size: var(--text-subtitle);
 }
 .main-head p{
     text-align: center;
@@ -47,15 +66,13 @@
     grid-template-rows: 55px 320px 55px 320px 15px;
     grid-column-gap: 20px;
 }
-h2{
+.front-page h2{
     grid-column: 1/-1;
     text-align: center;
+    font-size: var(--text-h2);
 }
-h3{
-    grid-column: 1/-1;
-    text-align: center;
-    padding-left: 270px;
-}
+
+
 .image-array-DRM, .image-array-PBM {
     grid-column: 2/-2;
 
@@ -82,15 +99,32 @@ button{
 }
 
 @media(max-width: 32em){ /*make the title smaller for small screens so it doesn't overflow*/
-    .main-head h1{font-size: var(--text-h2);}
-    .main-head{grid-template-rows: 105px 55px;}
+    .main-head{grid-template-rows: 49px 35px 30px;}
+    .main-head h1{font-size: var(--text-h1-2);}
+    .main-head h3{
+        padding-left: 175px;
+        font-size: var(--text-subtitle2);
+    }
+    .main-head p{font-size: var(--text-flair2);}
+    .front-page h2{font-size: var(--text-h2-2);}
+    .front-page {grid-template-rows: 45px 320px 45px 320px 10px;}
+    .front-page cite{font-size: var(--text-flair2);}
 }
+
+
+
+
+
+
+
+
+
 
 /* ------------------------- info pages ------------------------ */
 .info-page{
     display: grid;
     grid-template-columns: 385px 1fr;
-    column-gap: 10px;
+    column-gap: 10px; row-gap: 5px; /*row gap only for mobile layout, column for other layouts*/
     min-height: 0;
 }
 /*----extra info on the builds----*/
@@ -104,15 +138,12 @@ button{
     max-width: 385px;
     min-height: 91vh; /*maintain's info section's height if low text amount in description*/
     max-height: calc(100vh - 40px); /*prevents info section from overflowing so that the return button is off-screen (with full height pages)*/
-    
 }
 
 
 .desc{font-size: var(--text-body);}
-.colour-split{
-    color: var(--colour-basic2);
-    font-size: var(--text-flair);
-}
+.colour-split{color: var(--colour-basic2);}
+.details h1+p{font-size: var(--text-flair);}
 
 .details h1{
     color: var(--colour-basic2);
@@ -134,9 +165,11 @@ button{
     background-color: var(--colour-basic);  
 }
 
+/*link functionality:*/
 a:link, a:visited{color:var(--colour-basic);}
 a:hover{color: var(--colour-basic2)}
-.return-link{ /*return button specific stuff*/
+/*return button specific stuff:*/
+.return-link{ 
     text-decoration: none;
     font-size: 4em;
 }
@@ -154,7 +187,7 @@ a:hover{color: var(--colour-basic2)}
 }
 .small-image{
     max-width: 100vw; /*setting a max lets the image scale more naturally*/
-    min-width: 100px; 
+    min-width: 80px; 
     height: auto;
 }
 
@@ -165,18 +198,44 @@ a:hover{color: var(--colour-basic2)}
     .bonus-images{grid-template-columns: 1fr;}
 }
 
-/*temporary fix until mobile layout finished:*/
-@media(max-width: 36em){ /*swap from vertical overflow to horizontal due to small space*/
-    .bonus-images{ 
-        /*swap grid template direction*/
-        grid-template-columns: 250px 250px 250px 250px 250px 250px;
-        grid-template-rows: 1fr 1fr 1fr;
-        grid-auto-flow: column;
-        /*swap overflow direction*/
-        overflow-y: hidden;
-        overflow-x: auto;
+
+/*------------------mobile/thin window layouts-----------------*/
+@media(max-width: 35em){ 
+    .info-page{
+        grid-template-columns: 1fr;
+        grid-template-rows: 52vh  calc(48vh - 25px); /*needs to add up to 100vh; therefore must subtract the 5 row spacing, 20 top/bottom padding*/
+        
     }
-    .small-image{height: 100%;}
+    .details{
+        grid-template-rows:  35px 60px 1fr; /*adjust row amount and spacing for new text sizes/positions*/
+        grid-template-columns: 1fr  13vw; /*13vw is roughly smallest size that can fit the arrow well*/
+        grid-column: 1/-1;
+        padding-bottom: none;
+        max-width: none;
+        min-height: 48vh;
+    }
+    .desc{font-size: var(--text-body-mobile); grid-column: 1/-1;}
+    .details h1+p{font-size: var(--text-body-mobile); grid-column: 1/-1;}
+    .details h1{font-size: var(--text-h3-mobile);}
+    .details h1::before{height: 3px;}
+    .details h1::after{height: 3px;}
+
+    .return-link{ /*move the return button to optimize limited available space*/
+        grid-column: 2; 
+        grid-row: 1;
+        font-size: 3em;
+    }
+    .bonus-images{
+        grid-column: 1; 
+        grid-template-columns: 1fr 1fr;
+        height: calc(48vh - 20px); /*images take up full available height of viewport excluding the padding of the parent grid*/
+        column-gap: 5px; row-gap: 5px; padding-right: 5px; /*since limited space, make padding smaller*/
+    }
 }
 
-
+@media(max-width: 19.5em){ /*special font sizing for ultra-thin devices/windows*/
+    .desc{font-size: var(--text-body-mobile2);}
+    .details h1+p{font-size: var(--text-body-mobile2);}
+    .details h1{font-size: var(--text-h3-mobile2);}
+    .return-link{font-size: 2.5em;}
+}
