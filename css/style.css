@@ -14,7 +14,7 @@
     --text-h3-mobile: 1.2em;
     --text-h3-mobile2: 0.95em;
     --text-body: 1.15em;
-    --text-body-mobile: 0.75em;
+    --text-body-mobile: 0.82em;
     --text-body-mobile2: 0.65em;
 
     --colour-splash: rgb(162, 9, 9);
@@ -123,7 +123,7 @@ button{
     display: grid;
     grid-template-columns: 385px 1fr;
     column-gap: 10px; row-gap: 5px; /*row gap only for mobile layout, column for other layouts*/
-    min-height: 0;
+    min-width: 115px;
 }
 /*----extra info on the builds----*/
 .details{
@@ -205,7 +205,7 @@ a:hover{color: var(--colour-basic2)}
         
     }
     .details{
-        grid-template-rows:  35px 60px 1fr; /*adjust row amount and spacing for new text sizes/positions*/
+        grid-template-rows:  35px 65px 1fr; /*adjust row amount and spacing for new text sizes/positions*/
         grid-template-columns: 1fr  13vw; /*13vw is roughly smallest size that can fit the arrow well*/
         grid-column: 1/-1;
         padding-bottom: none;
@@ -221,7 +221,8 @@ a:hover{color: var(--colour-basic2)}
     .return-link{ /*move the return button to optimize limited available space*/
         grid-column: 2; 
         grid-row: 1;
-        font-size: 3em;
+        font-size: 2.75em;
+        align-content: start;
     }
     .bonus-images{
         grid-column: 1; 
@@ -231,9 +232,9 @@ a:hover{color: var(--colour-basic2)}
     }
 }
 
-@media(max-width: 19.5em){ /*special font sizing for ultra-thin devices/windows*/
+@media(max-width: 25em){ /*special font sizing for ultra-thin devices/windows*/
     .desc{font-size: var(--text-body-mobile2);}
     .details h1+p{font-size: var(--text-body-mobile2);}
     .details h1{font-size: var(--text-h3-mobile2);}
-    .return-link{font-size: 2.5em;}
+    .return-link{font-size: 2.25em;}
 }
