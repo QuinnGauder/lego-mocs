@@ -179,7 +179,7 @@ a:hover{color: var(--colour-basic2)}
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     height: calc(100vh - 20px); /*images take up full height of viewport excluding the padding of the parent grid*/
-    overflow-y: auto; /*when too many images exist, scroll vertically for more*/
+    overflow-y: scroll; /*when too many images exist, scroll vertically for more*/
     padding-right: 10px; /*right padding added here to put space left of scroll bar*/
     column-gap: 10px; row-gap: 10px;
 }
@@ -201,16 +201,17 @@ a:hover{color: var(--colour-basic2)}
 @media(max-width: 35em){ 
     .info-page{
         grid-template-columns: 1fr;
-        grid-template-rows: 52vh  calc(48vh - 25px); /*needs to add up to 100vh; therefore must subtract the 5 row spacing, 20 top/bottom padding*/
-        
+        grid-template-rows: min-content  minmax(0,1fr); /*1st row defines the size of both*/
+        height: calc(100dvh - 17px); /*temporary fix to stop page from getting slightly too large*/
     }
     .details{
-        grid-template-rows:  35px 65px 1fr; /*adjust row amount and spacing for new text sizes/positions*/
+        grid-template-rows:  35px 65px min-content; /*adjust row amount and spacing for new text sizes/positions*/
         grid-template-columns: 1fr  13vw; /*13vw is roughly smallest size that can fit the arrow well*/
         grid-column: 1/-1;
+        min-height: min-content; /*for some dumb reason, min-height constrains the container from expanding beyond the smallest available space, whereas height and max-height do not; hence, min-height: min-content is used*/
+        /*reset some variables from previous layout that aren't used the same way in mobile layout:*/
         padding-bottom: none;
         max-width: none;
-        min-height: 48vh;
     }
     .desc{font-size: var(--text-body-mobile); grid-column: 1/-1;}
     .details h1+p{font-size: var(--text-body-mobile); grid-column: 1/-1;}
@@ -227,8 +228,10 @@ a:hover{color: var(--colour-basic2)}
     .bonus-images{
         grid-column: 1; 
         grid-template-columns: 1fr 1fr;
-        height: calc(48vh - 20px); /*images take up full available height of viewport excluding the padding of the parent grid*/
+        min-height: 40dvh; /*any less than this any it is too hard to see the images*/
+        height: auto;
         column-gap: 5px; row-gap: 5px; padding-right: 5px; /*since limited space, make padding smaller*/
+        
     }
 }
 
