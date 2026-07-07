@@ -123,7 +123,7 @@ button{
     display: grid;
     grid-template-columns: 385px 1fr;
     column-gap: 10px; row-gap: 5px; /*row gap only for mobile layout, column for other layouts*/
-    min-width: 115px;
+    min-width: 75px; /*extremely unlikely to matter, but best to cover that edge case*/
 }
 /*----extra info on the builds----*/
 .details{
@@ -134,8 +134,7 @@ button{
     grid-template-rows: 60px 80px 1fr 60px;
     padding: 10px;
     max-width: 385px;
-    min-height: 91vh; /*maintain's info section's height if low text amount in description*/
-    max-height: calc(100vh - 40px); /*prevents info section from overflowing so that the return button is off-screen (with full height pages)*/
+    /*height implicitly controlled by other item in the grid row*/
 }
 
 
@@ -146,7 +145,6 @@ button{
 .details h1{
     color: var(--colour-basic2);
     font-size: var(--text-h3);
-
 }
 .details h1::before{ /*overline details to h1*/
     content:"";
@@ -178,7 +176,7 @@ a:hover{color: var(--colour-basic2)}
 
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    height: calc(100vh - 20px); /*images take up full height of viewport excluding the padding of the parent grid*/
+    height: 33.5em; /*images take up the height of the maximum allowable amount of text in the info section (window fully expanded only)*/
     overflow-y: scroll; /*when too many images exist, scroll vertically for more*/
     padding-right: 10px; /*right padding added here to put space left of scroll bar*/
     column-gap: 10px; row-gap: 10px;
@@ -201,8 +199,8 @@ a:hover{color: var(--colour-basic2)}
 @media(max-width: 35em){ 
     .info-page{
         grid-template-columns: 1fr;
-        grid-template-rows: min-content  minmax(0,1fr); /*1st row defines the size of both*/
-        height: calc(100dvh - 17px); /*temporary fix to stop page from getting slightly too large*/
+        grid-template-rows: min-content  minmax(0,1fr); /*1st row defines the size of both, 2nd row is constrained to be the remaining free space*/
+        height: calc(100dvh - 17px); /*temporary fix to stop page from being slightly too large*/
     }
     .details{
         grid-template-rows:  35px 65px min-content; /*adjust row amount and spacing for new text sizes/positions*/
@@ -240,4 +238,12 @@ a:hover{color: var(--colour-basic2)}
     .details h1+p{font-size: var(--text-body-mobile2);}
     .details h1{font-size: var(--text-h3-mobile2);}
     .return-link{font-size: 2.25em;}
+}
+
+/*-------layout changes for mobile phones in landscape mode-------*/
+@media(max-height:34.5em) and (min-width: 35em){ 
+    /*make the total height of the constraining grid component (the images) slightly shorter when a window is not at max height.
+    This is used so that less scroll distance is required in mobile landscape mode while also keeping the return button at 
+    the bottom for all page lengths when a window is fully expanded on desktop. Not a major impact, but every little bit counts...*/
+    .bonus-images{height: 32em;} /*32em specifically is chosen as it is the largest size the text in the info column is allowed to displace*/
 }
