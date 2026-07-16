@@ -30,7 +30,7 @@
     background-color: var(--colour-background);
     color: var(--colour-basic); /*setting the default text colour to a light colour since default background colour is black.*/
 }
-
+img {color: white}/*if any image doesn't load, makes alt text more visible on the black background*/
 
 
 /* ------------------------- main page ------------------------ */
