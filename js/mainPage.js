@@ -2,7 +2,7 @@
 const PBM = document.getElementById("scroll1"); //first array (physically built mocs)
 const DRM = document.getElementById("scroll2"); //second array (digitally rendered mocs)
 
-let currentScroll = PBM; //returns either PBM or DRM depending on which is primarily currently on-screen more. Defaul is PBM
+let currentScroll = PBM; //returns either PBM or DRM depending on which is primarily currently on-screen more. Default is PBM
 let idleTimer; //a timer storing the amount of time since an input (button press) has last been registered
 let autoScrollInterval; //active timer that stores the ID of the scrolling action so that it can be stopped if needed
 let direction = 1; //1 = right, -1 = left
@@ -57,13 +57,13 @@ function resetIdleTimer() { //this function is called if any notable interaction
 
 /*----------------------hover behaviour-------------------------*/
 PBM.addEventListener("mouseenter", () => { //mouse begins a hover over PBM
-  if(currentScroll == PBM){ //only pause PBM if PBM is the one scrolling rn; if DRM is scrolling then do nothing when PBM is hovered over
+  if(currentScroll == PBM){ //only pause PBM if PBM is the one actively scrolling; if DRM is scrolling then do nothing when PBM is hovered over
     paused = scrolling_status; //check if scroll had begun before hover and store this value for when the hover ends
     stopAutoScroll(); //temporarily stop the autoscroll
   }
 });
 DRM.addEventListener("mouseenter", () => { //mouse begins a hover over DRM
-  if(currentScroll == DRM){ //only pause DRM if DRM is the one scrolling rn; if PBM is scrolling then do nothing when DRM is hovered over
+  if(currentScroll == DRM){ //only pause DRM if DRM is the one actively scrolling; if PBM is scrolling then do nothing when DRM is hovered over
     paused = scrolling_status; //check if scroll had begun before hover and store this value for when the hover ends
     stopAutoScroll(); //temporarily stop the autoscroll
   }
@@ -85,7 +85,7 @@ window.addEventListener("click", () => { //if any clicks are detected anywhere o
     stopAutoScroll();
     resetIdleTimer();
 });
-window.addEventListener("touchstart", () => { //for mobile platforms, allows taps anywhere on screen (or attempts to scroll manually) to end the afk scrolling action
+window.addEventListener("touchstart", () => { //for mobile devices, allows taps anywhere on screen (or attempts to scroll manually) to end the afk scrolling action
   paused = false;  
   stopAutoScroll();
   resetIdleTimer();

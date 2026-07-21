@@ -10,6 +10,7 @@
     --text-subtitle2: 0.9em;
     --text-flair: 0.95em;
     --text-flair2: 0.80em;
+    --text-flair3: 0.70em;
     --text-h3: 1.8em;
     --text-h3-mobile: 1.2em;
     --text-h3-mobile2: 0.95em;
@@ -31,6 +32,7 @@
     color: var(--colour-basic); /*setting the default text colour to a light colour since default background colour is black.*/
 }
 img {color: white}/*if any image doesn't load, makes alt text more visible on the black background*/
+
 
 
 /* ------------------------- main page ------------------------ */
@@ -64,7 +66,7 @@ img {color: white}/*if any image doesn't load, makes alt text more visible on th
     grid-template-rows: 55px 320px 55px 320px 15px;
     grid-column-gap: 20px;
 }
-.front-page h2{
+.front-page h2{ /*category headers*/
     grid-column: 1/-1;
     text-align: center;
     font-size: var(--text-h2);
@@ -72,7 +74,7 @@ img {color: white}/*if any image doesn't load, makes alt text more visible on th
 
 
 .image-array-DRM, .image-array-PBM {
-    grid-column: 2/-2;
+    grid-column: 2/-2; /*leaves space for the buttons to fill*/
 
     display: grid;
     grid-column-gap: 20px;
@@ -88,6 +90,7 @@ button{
     font-size: 2em;
     font-weight: 700;
 }
+
 .front-page cite{
     grid-column: 1/-1;
     grid-row: -1;
@@ -99,7 +102,7 @@ button{
 @media(max-width: 32em){ /*make the title smaller for small screens so it doesn't overflow*/
     .main-head{grid-template-rows: 49px 35px 30px;}
     .main-head h1{font-size: var(--text-title2);}
-    .main-head h3{
+    .main-head h3{ /*as fontsize changes, must update subtitle position offset to stay consistent*/
         padding-left: 175px;
         font-size: var(--text-subtitle2);
     }
@@ -108,7 +111,7 @@ button{
     .front-page {grid-template-rows: 45px 320px 45px 320px 10px;}
     .front-page cite{font-size: var(--text-flair2);}
 }
-
+@media(max-width: 25em){.main-head p{font-size: var(--text-flair3);}} /*prevent text overflow for ultra-thin/shorter phones*/
 
 
 
@@ -119,12 +122,14 @@ button{
 
 
 /* ------------------------- info pages ------------------------ */
-.info-page{
+.info-page{ /*highest order parent grid*/
     display: grid;
     grid-template-columns: 385px 1fr;
     column-gap: 10px; row-gap: 5px; /*row gap only for mobile layout, column for other layouts*/
     min-width: 75px; /*extremely unlikely to matter, but best to cover that edge case*/
 }
+
+
 /*----extra info on the builds----*/
 .details{
     grid-column: 1;
@@ -137,11 +142,11 @@ button{
     /*height implicitly controlled by other item in the grid row*/
 }
 
-
 .desc{font-size: var(--text-body);}
 .colour-split{color: var(--colour-basic2);}
 .details h1+p{font-size: var(--text-flair);}
 
+/*title detailing:*/
 .details h1{
     color: var(--colour-basic2);
     font-size: var(--text-h3);
@@ -170,6 +175,7 @@ a:hover{color: var(--colour-basic2)}
     font-size: 4em;
 }
 
+
 /*----extra images for the builds----*/
 .bonus-images{
     grid-column: 2;
@@ -183,10 +189,11 @@ a:hover{color: var(--colour-basic2)}
 }
 .small-image{
     width: 100%; /*set the images to tile the space as efficiently as possible, even on mobile*/
-    min-width: 80px; 
-    height: auto;
+    min-width: 80px; /*prevent image from being too small to see the details of*/
+    height: auto; /*automatically calculate height of the image based on the 100% width and the images aspect ratio*/
 }
 
+/*optimizing image layouts at page-size breakpoints:*/
 @media(max-width: 76em){ /*maintain image sizes by lowering column count*/
     .bonus-images{grid-template-columns: 1fr 1fr;}
 }
@@ -197,7 +204,7 @@ a:hover{color: var(--colour-basic2)}
 
 /*------------------mobile/thin window layouts-----------------*/
 @media(max-width: 35em){ 
-    .info-page{
+    .info-page{ /*reorganize layout to be vertically stacked instead of horizontally to fit more content on thinner pages*/
         grid-template-columns: 1fr;
         grid-template-rows: min-content  minmax(0,1fr); /*1st row defines the size of both, 2nd row is constrained to be the remaining free space*/
         height: calc(100dvh - 17px); /*temporary fix to stop page from being slightly too large*/
@@ -225,11 +232,10 @@ a:hover{color: var(--colour-basic2)}
     }
     .bonus-images{
         grid-column: 1; 
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr; /*go back up to 2 columns (from 1 previously) since vertical stacking limits amount of photos that can be seen on screen at once otherwise*/
         min-height: 40dvh; /*any less than this any it is too hard to see the images*/
-        height: auto;
+        height: auto; /*reset height to no longer be limited to the height of the info section, as they are no longer neighbouring each other horizontally*/
         column-gap: 5px; row-gap: 5px; padding-right: 5px; /*since limited space, make padding smaller*/
-        
     }
 }
 
